@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ok">OK</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="low_storage_error">Cannot be downloaded due to low device storage</string>
+    <string name="title_activity_main">Barcode Reader</string>
+    <string name="read_barcode">Сканировать</string>
+    <string name="use_flash">Use Flash</string>
+    <string name="barcode_failure">No barcode captured</string>
+    <string name="barcode_error">"Error reading barcode: %1$s"</string>
+    <string name="compare">Всего добавлено товаров: %1$d</string>
+    <string name="category">Категория: %1$s</string>
+    <string name="add_to_compare">Добавить к сравнению</string>
+    <string name="incorrect">Неккоректный баркод</string>
+    <string name="your_choice">Вы выбрали: %1$s</string>
+    <string name="cant_compare_different">Нельзя сравнивать товары разных категорий</string>
+    <string name="cant_compare_itself">Нельзя сравнивать одинаковые товары</string>
+    <string name="have_no_choice">Нечего сравнивать</string>
+    <string name="have_no_product">Не с чем сравнивать</string>
+    <string name="have_no_added">Нечего добавлять к сравнению</string>
+</resources>

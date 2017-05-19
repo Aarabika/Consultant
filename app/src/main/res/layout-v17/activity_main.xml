@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.google.android.gms.samples.vision.barcodereader.MainActivity">
+
+
+    <TextView
+        android:id="@+id/nowInCompare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        tools:background="@color/common_google_signin_btn_text_dark_default"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="42dp" />
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/nowInCompare"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ListView
+        android:id="@+id/models"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/read_barcode"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/category"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+    <Button
+        android:id="@+id/read_barcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/scaner_button"
+        android:layout_above="@+id/category"
+        android:layout_marginRight="325dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"/>
+
+    <Button
+        android:id="@+id/compare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="450dp"
+        android:layout_marginStart="250dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/button"
+        android:text="сравнить"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/category"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/top_panel"
+        android:orientation="horizontal"/>
+
+    <Button
+        android:id="@+id/clear_compare"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="450dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="250dp"
+        android:text="Очистить"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:background="@drawable/button"/>
+
+
+</RelativeLayout>

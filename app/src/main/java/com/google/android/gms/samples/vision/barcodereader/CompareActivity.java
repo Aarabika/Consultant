@@ -9,6 +9,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.Window;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TableLayout;
@@ -33,6 +36,7 @@ public class CompareActivity extends Activity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         //Получение Parcel из MainActivity
         productsCompareView = getIntent().getParcelableExtra(productsCompare);//текущее сравнение
         productView = getIntent().getParcelableExtra(productCharacters);//выбранный товар
@@ -81,10 +85,6 @@ public class CompareActivity extends Activity implements View.OnClickListener {
             if (view instanceof TextView) {
                 ((TextView) view).setText("");
             }
-            if (view instanceof ListView) {
-                ((ListView) view).setAdapter(null);
-            }
-
             //Если нужно будет удалаять сложные конструкции раскомитить это
             if (view instanceof ViewGroup && (((ViewGroup) view).getChildCount() > 0))
                 clearForm((ViewGroup) view);

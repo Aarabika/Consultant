@@ -21,6 +21,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -87,6 +88,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity {
 
         gestureDetector = new GestureDetector(this, new CaptureGestureListener());
         scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
+        Log.w(TAG, ""+scaleGestureDetector);
         Snackbar.make(mGraphicOverlay, "Нажмите на над подсвеченный код",
                 Snackbar.LENGTH_LONG)
                 .show();

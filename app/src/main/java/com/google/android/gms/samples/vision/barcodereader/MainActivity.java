@@ -54,6 +54,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         // LayoutInflater для диалогового окна
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.dialog_signin,
@@ -72,11 +73,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.compare).setOnClickListener(this);
         findViewById(R.id.clear_compare).setOnClickListener(this);
 
+
         // Инициализация диалогового окна
         dialog = new Dialog(MainActivity.this);
         dialog.setContentView(layout);
         Window window = dialog.getWindow();
-        window.setLayout(1000, 900);
+        window.setLayout(1000, 850);
         window.setGravity(Gravity.CENTER);
         model = (TextView) dialog.findViewById(R.id.model);
 
@@ -183,7 +185,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         compare = null;
         InCompareNow.setText(res.getString(R.string.compare, 0));
         Category.setText(res.getString(R.string.category, ""));
-        CompareActivity.clearForm(modelsInCompare);
+        adapter = null;
+        modelsInCompare.setAdapter(null);
     }
 
 

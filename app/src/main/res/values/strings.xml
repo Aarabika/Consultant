@@ -13,7 +13,7 @@
     <string name="category">Категория: %1$s</string>
     <string name="add_to_compare">Добавить к сравнению</string>
     <string name="incorrect">Неккоректный баркод</string>
-    <string name="your_choice">Вы выбрали: %1$s</string>
+    <string name="your_choice">Вы выбрали: \n\r %1$s</string>
     <string name="cant_compare_different">Нельзя сравнивать товары разных категорий</string>
     <string name="cant_compare_itself">Нельзя сравнивать одинаковые товары</string>
     <string name="have_no_choice">Нечего сравнивать</string>

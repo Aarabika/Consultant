@@ -1,6 +1,8 @@
 package com.google.android.gms.samples.vision.barcodereader.ProductsCompare;
 
 
+import android.util.Log;
+
 import com.google.android.gms.samples.vision.barcodereader.R;
 
 public class CompareValidityData {
@@ -11,7 +13,7 @@ public class CompareValidityData {
     private static final int different_categories = 1;
     private static final int equal_products = 2;
 
-    public CompareValidityData(){
+     CompareValidityData(){
 
     }
 
@@ -23,13 +25,12 @@ public class CompareValidityData {
         this.description = description;
     }
 
-    public int getDescriptionText(){
-        int return_value;
+    public int getDescriptionId(){
+        int return_value = 0;
 
         switch (description){
             case different_categories: return_value = R.string.cant_compare_different;break;
             case equal_products: return_value =  R.string.cant_compare_itself;break;
-            default: return_value = 0;
         }
 
         return return_value;

@@ -112,7 +112,6 @@ public class Compare {
 
             if (productList != null) {
                 // проверка на наличие одноименного товара в текущем сравнении
-
                 if (CheckForSimilarProductInCompare(productList, product.getCharacters().get(0))) {
                     addToCompare(product.getCharacters());
                 } else {
@@ -120,6 +119,10 @@ public class Compare {
 
                 }
             }
+            else {
+                addToCompare(product.getCharacters());
+            }
+
             data.setValidityStatus(true);
         } else {
 

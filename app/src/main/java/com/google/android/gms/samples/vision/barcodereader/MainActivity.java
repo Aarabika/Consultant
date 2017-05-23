@@ -150,7 +150,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             case R.id.add_to_compare:
                 // добавляет продукт к сравнению
-
                 boolean checkAdded = true;
 
                 if (product != null) {
@@ -160,8 +159,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 } else {
                     makeToast(R.string.have_no_added);
                 }
-
-                if (!checkAdded) {
+                if (checkAdded) {
                     dialog.cancel();
                 }
                 break;
@@ -214,7 +212,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
             createDialog();
         }
 
-        makeToast(validity_information.getDescriptionText());
+        if(validity_information.getDescriptionId() != 0) {
+            makeToast(validity_information.getDescriptionId());
+        }
 
         updateTotalCompareView();
 

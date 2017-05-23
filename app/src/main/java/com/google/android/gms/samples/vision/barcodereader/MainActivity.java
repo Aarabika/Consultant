@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.samples.vision.barcodereader.PrBarcode.Product;
 import com.google.android.gms.samples.vision.barcodereader.ProductsCompare.Compare;
+import com.google.android.gms.samples.vision.barcodereader.ProductsCompare.CompareValidityData;
 import com.google.android.gms.samples.vision.barcodereader.ProductsCompare.ProductsInfo;
 import com.google.android.gms.vision.barcode.Barcode;
 
@@ -119,60 +120,67 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.read_barcode) {
-            // launch barcode activity.
+        switch (v.getId()) {
 
-            Intent intent = new Intent(this, BarcodeCaptureActivity.class);
-            startActivityForResult(intent, RC_BARCODE_CAPTURE);
-        }
-        if (v.getId() == R.id.close) {
-            //закрыть диалоговое окно
+            case R.id.read_barcode:
+                // launch barcode activity.
 
-            dialog.cancel();
-        }
-        if (v.getId() == R.id.clear_compare) {
-            //отчистить текущее сравнение
-            clearCompare();
-        }
-        if (v.getId() == R.id.characters) {
-            // посмотреть характеристики товара
+                Intent intent = new Intent(this, BarcodeCaptureActivity.class);
+                startActivityForResult(intent, RC_BARCODE_CAPTURE);
+                break;
 
-            viewCharacters();
-            dialog.cancel();
-        }
-        if (v.getId() == R.id.add_to_compare) {
-            // добавляет продукт к сравнению
+            case R.id.close:
+                //закрыть диалоговое окно
 
-            int checkAdded =0;
-            if(product != null){
-                if (product.getStatus()) {
-                    checkAdded = addToCompare();
-                }
-            }
-            else {
-                makeToast(R.string.have_no_added);
-            }
-            if (checkAdded != -1) {
                 dialog.cancel();
-            }
-        }
-        if (v.getId() == R.id.compare) {
-            // сравнивает ранее добавленные продукты
+                break;
 
-            if(compare != null){
-                if(compare.getInCompareNow() > 1){
-                    compareProducts();
+            case R.id.clear_compare:
+                //отчистить текущее сравнение
+
+                clearCompare();
+                break;
+
+            case R.id.characters:
+                // посмотреть характеристики товара
+
+                viewCharacters();
+                dialog.cancel();
+                break;
+
+            case R.id.add_to_compare:
+                // добавляет продукт к сравнению
+
+                boolean checkAdded = true;
+
+                if (product != null) {
+                    if (product.getExist()) {
+                        checkAdded = addToCompare();
+                    }
+                } else {
+                    makeToast(R.string.have_no_added);
                 }
-                else{
-                    makeToast(R.string.have_no_product);
+
+                if (!checkAdded) {
+                    dialog.cancel();
                 }
-            }
-            else {
-                makeToast(R.string.have_no_choice);
-            }
+                break;
+
+            case R.id.compare:
+                // сравнивает ранее добавленные продукты
+
+                if (compare != null) {
+                    if (compare.getInCompareNow() > 1) {
+                        compareProducts();
+                    } else {
+                        makeToast(R.string.have_no_product);
+                    }
+                } else {
+                    makeToast(R.string.have_no_choice);
+                }
+                break;
+
         }
-
-
     }
 
     /**
@@ -196,34 +204,21 @@ public class MainActivity extends Activity implements View.OnClickListener {
      *
      * <p>проверяет объект на валидность</p>
      **/
-    public int addToCompare(){
+    public boolean addToCompare() {
         compare = compare == null ? new Compare(product) : compare;
+        CompareValidityData validity_information = compare.CheckValidityAndAddToCompareProduct(product);
 
-        //Проверка на тип товара
-        if (compare.getCompareType().equals(product.getType())) {
-            //проверка на наличие товаров в текущем сравнении
-
-            if (compare.getAllCharacters().get(0) != null) {
-                ArrayList<String> productList = compare.getAllCharacters().get(0);
-                // проверка на наличие одноименного товара в текущем сравнении
-
-                if (productList.indexOf(product.getCharacters().get(0)) == -1) {
-                    compare.addToCompare(product.getCharacters());
-                    updateTotalCompareView();
-                } else {
-                    makeToast(R.string.cant_compare_itself);
-                }
-            } else {
-                compare.addToCompare(product.getCharacters());
-                updateTotalCompareView();
-            }
+        if (validity_information.getValidityStatus()) {
             product = null;
-            return 0;
         } else {
-            makeToast(R.string.cant_compare_different);
             createDialog();
-            return -1;
         }
+
+        makeToast(validity_information.getDescriptionText());
+
+        updateTotalCompareView();
+
+        return validity_information.getValidityStatus();
     }
 
 
@@ -357,7 +352,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     product = new Product(barcode.displayValue,this);
 
 
-                    if(product.getStatus()) {
+                    if(product.getExist()) {
 
                         product.getProduct();
                         createDialog();

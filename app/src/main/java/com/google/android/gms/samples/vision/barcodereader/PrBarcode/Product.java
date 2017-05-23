@@ -41,7 +41,7 @@ public class Product  {
     public int getCharactersCount (){
         return charactersCount;
     }
-    public boolean getStatus (){
+    public boolean getExist (){
         return status;
     }
 

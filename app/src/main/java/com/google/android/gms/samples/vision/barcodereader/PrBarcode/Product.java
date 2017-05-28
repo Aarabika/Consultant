@@ -14,8 +14,8 @@ public class Product  {
     private static final String TAG = "ProductGetting";
     // поля, для харектеристики товара
     private  String characters = null;// названия характеристик
-    private   String typeBD = null;// тип товара(для базы данных)
-    private   String type = null;// тип товара
+    private  String typeBD = null;// тип товара(для базы данных)
+    private  String type = null;// тип товара
     private  String partNumber = null;// id товара
     // поля для расшифрофки табличных данных
     private static final String available = "+";//если подразумевался булеан true
@@ -62,6 +62,7 @@ public class Product  {
         String[] words = brText.split(" ");
         db = new DatabaseHelper(context,1);
         Log.d(TAG, "barcode: "+ brText);
+
         if (words.length == 3) {
             characters = words[0];
             typeBD = words[1];
@@ -93,19 +94,22 @@ public class Product  {
      * **/
     private void checkData() {
         if(!characters.trim().equals("")&&!typeBD.trim().equals("")&&!partNumber.trim().equals("")) {
+            // проверяет на существование таблицу с именем characters
             String sql = "SELECT * FROM sqlite_master WHERE type = 'table' and tbl_name = " + "'" + characters + "'";
             Cursor cursor = db.getReadableDatabase()
-                    .rawQuery(sql, null);
+                              .rawQuery(sql, null);
             if (cursor.moveToFirst()) {
                 cursor.close();
+                // проверяет на существование таблицу с именем typeBD
                 sql = "SELECT name FROM 'sqlite_sequence' WHERE name = '" + typeBD + "'";
                 cursor = db.getReadableDatabase()
-                        .rawQuery(sql, null);
+                           .rawQuery(sql, null);
                 if (cursor.moveToFirst()) {
                     cursor.close();
+                    // проверяет на существование записи с именем partNumber
                     sql = "SELECT _id FROM '" + typeBD + "' where _id = " + partNumber;
                     cursor = db.getReadableDatabase()
-                            .rawQuery(sql, null);
+                               .rawQuery(sql, null);
                     if (cursor.moveToFirst()) {
                         Log.d(TAG, "Barcode verified successful");
                         cursor.close();

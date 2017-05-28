@@ -1,15 +1,13 @@
 package com.google.android.gms.samples.vision.barcodereader.ProductsCompare;
-
-
-import android.util.Log;
-
-import com.google.android.gms.samples.vision.barcodereader.R;
+import com.google.android.gms.samples.vision.barcodereader.R;//класс, с ресурсами приложения
 
 public class CompareValidityData {
-
+    // статус добавления к сравнению
     private boolean validity_status;
+    // расширенное описание статуса добаления
     private int description;
 
+    // константы для описания статусов
     private static final int different_categories = 1;
     private static final int equal_products = 2;
 

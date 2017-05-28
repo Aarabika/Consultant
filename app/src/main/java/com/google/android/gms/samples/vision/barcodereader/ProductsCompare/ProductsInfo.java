@@ -6,7 +6,7 @@ import android.util.SparseArray;
 
 import java.util.ArrayList;
 
-
+// класс для отправки данных о продуктах между Activity
 public class ProductsInfo implements Parcelable {
 
     //private static final String TAG = "ProductsCompareParcel";
@@ -91,11 +91,11 @@ public class ProductsInfo implements Parcelable {
             return;
         }
         int size = sparseArray.size();
-        dest.writeInt(size);
+        dest.writeInt(size);// запаковывает размер хеш таблицы
         int i=0;
         while (i < size) {
-            dest.writeInt(sparseArray.keyAt(i));
-            dest.writeStringList(sparseArray.valueAt(i));
+            dest.writeInt(sparseArray.keyAt(i));// запаковывает ключ
+            dest.writeStringList(sparseArray.valueAt(i));//запаковывает значение
             i++;
         }
     }
@@ -114,8 +114,8 @@ public class ProductsInfo implements Parcelable {
         SparseArray <ArrayList<String>> sa = new SparseArray<>(size);
 
         while (size > 0) {
-            int key = source.readInt();
-            ArrayList<String> value = source.createStringArrayList();
+            int key = source.readInt();//распаковывает ключ
+            ArrayList<String> value = source.createStringArrayList();// распаковывает список
             sa.put(key, value);
             size--;
         }

@@ -39,24 +39,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         public DatabaseHelper(Context context,int Mode) {
                 super(context, DB_NAME, null, 2);
                 this.myContext = context;
-                this.DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
-                Log.e("Path 1", DB_PATH);
+                this.DB_PATH = myContext.getFilesDir().getPath() + context.getPackageName() + "/databases/";
+
 
                 if (Mode == Open) {
                         try {
-                                this.openDataBase();
+                                openDataBase();
 
                         } catch (SQLException sqle) {
-                                throw sqle;
+                                Log.e(TAG,"Filed open db", sqle);
                         }
                 }
                 if(Mode == OpenAndUpdate){
                         try {
-                                this.openDataBase();
-                                this.DBUpdate();
+                                openDataBase();
+                                DBUpdate();
 
                         } catch (SQLException sqle) {
-                                throw sqle;
+                                Log.e(TAG,"Filed open|update db", sqle);
                         }
                 }
 
@@ -69,11 +69,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
          * @exception IOException если не удается создать указанную бд
          * **/
         private void createDataBase() throws IOException {
-            boolean dbExist = checkDataBase();
+                boolean dbExist = checkDataBase();
 
-            if (!dbExist) {
-                this.getReadableDatabase();
-                    copyDataBase();
+                if (!dbExist) {
+                        getReadableDatabase();
+                        copyDataBase();
                 }
         }
 
@@ -88,6 +88,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 SQLiteDatabase checkDB = null;
                 try {
                         String myPath = DB_PATH + DB_NAME;
+                        // открывает базу данных для чтения
                         checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
                 } catch (SQLiteException e) {
                         Log.e(TAG, "Couldn't open " + DB_NAME, e);
@@ -174,11 +175,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
          * <p> Обновляет текущую базу данных
          * </p>
          * **/
-        private void DBUpdate() {
+        private void DBUpdate() throws SQLException{
                 try {
                         copyDataBase();
                 } catch (IOException e) {
-                        e.printStackTrace();
+                        throw new Error("Filed to copy database");
 
                 }
         }
